@@ -11,7 +11,11 @@ const ContainerBody: React.FC<React.PropsWithChildren<ContainerBodyProps>> = (
 	props
 ) => {
 	return (
-		<Container maxW="container.xl" {...props}>
+		<Container
+			maxW={["full", null, null, "container.xl"]}
+			px={["5", "5", "5", null, null]}
+			{...props}
+		>
 			{props.children}
 		</Container>
 	);

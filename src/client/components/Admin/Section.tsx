@@ -15,7 +15,7 @@ const AdminSection: React.FC<React.PropsWithChildren<AdminSectionProps>> = (
 	props
 ) => {
 	return (
-		<Flex flexDir={"column"} {...props.wrapperProps} my="10">
+		<Flex flexDir={"column"} {...props.wrapperProps}>
 			<Flex align={"center"} mb="5">
 				<Text minW="fit-content" fontWeight={"semibold"}>
 					{props.title}

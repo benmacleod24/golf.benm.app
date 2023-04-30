@@ -12,7 +12,15 @@ interface NatePageProps {}
 const NatePage: React.FC<NatePageProps> = (props) => {
 	return (
 		<Container.Main>
-			<Grid templateColumns={"repeat(2, 1fr)"} gap={"14"}>
+			<Grid
+				templateColumns={[
+					"repeat(1, 1fr)",
+					null,
+					null,
+					"repeat(2, 1fr)",
+				]}
+				gap={"14"}
+			>
 				<Admin.CreatePlayer />
 				<Admin.CreateTeam />
 			</Grid>

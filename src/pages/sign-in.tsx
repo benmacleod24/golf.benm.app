@@ -36,7 +36,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
 		}
 
 		// Set pin state value.
-		setPin(pin);
+		setPin(pin.toUpperCase());
 	};
 
 	// Pull message from query or default to simple message.
@@ -71,10 +71,10 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
 
 			<HStack my="6">
 				<PinInput type="alphanumeric" mask onChange={onPinChange}>
-					<PinInputField />
-					<PinInputField />
-					<PinInputField />
-					<PinInputField />
+					<PinInputField textTransform={"uppercase"} />
+					<PinInputField textTransform={"uppercase"} />
+					<PinInputField textTransform={"uppercase"} />
+					<PinInputField textTransform={"uppercase"} />
 				</PinInput>
 			</HStack>
 
