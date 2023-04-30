@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { FormState, UseFormRegister } from "react-hook-form";
-import { CreatePlayerFormData, InputTypes } from "../Admin/CreatePlayer";
+import { CreatePlayerFormData } from "../Admin/CreatePlayer";
 
 interface FormInputProps {
 	name: any;
@@ -27,6 +27,8 @@ const FormInput: React.FC<FormInputProps> = ({
 }) => {
 	const { errors } = formState;
 
+	const errorMessage = errors[name]?.message || "Unknown Error";
+
 	return (
 		<FormControl isInvalid={Boolean(errors[name])}>
 			<FormLabel htmlFor={name}>
@@ -39,9 +41,7 @@ const FormInput: React.FC<FormInputProps> = ({
 					required: "This is required",
 				})}
 			/>
-			<FormErrorMessage>
-				{(errors[name] && errors[name]?.message) || ""}
-			</FormErrorMessage>
+			<FormErrorMessage>{errorMessage.toString()}</FormErrorMessage>
 		</FormControl>
 	);
 };

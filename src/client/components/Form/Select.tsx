@@ -7,10 +7,10 @@ import {
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { FormState, UseFormRegister } from "react-hook-form";
-import { CreatePlayerFormData, InputTypes } from "../Admin/CreatePlayer";
+import { CreatePlayerFormData } from "../Admin/CreatePlayer";
 
 interface FormSelectProps {
-	name: InputTypes;
+	name: any;
 	register: UseFormRegister<any>;
 	formState: FormState<any>;
 	placeholder?: string;
@@ -44,13 +44,16 @@ const FormSelect: React.FC<FormSelectProps> = ({
 			>
 				{props.data &&
 					props.data.map((v) => (
-						<option value={v[props.valueKey]}>
+						<option
+							value={v[props.valueKey]}
+							key={new Date().toISOString()}
+						>
 							{v[props.displayKey as string] || v}
 						</option>
 					))}
 			</Select>
 			<FormErrorMessage>
-				{errors[name] && errors[name]?.message}
+				{errors[name] && errors[name]?.message?.toString()}
 			</FormErrorMessage>
 		</FormControl>
 	);

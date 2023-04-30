@@ -46,7 +46,9 @@ const Header: React.FC<HeaderProps> = (props) => {
 						<NavButton href="/teams">Teams</NavButton>
 						<NavButton href="/players">Players</NavButton>
 						{isLoaded && isAdmin && (
-							<NavButton href="/admin">Nate's Section</NavButton>
+							<NavButton href="/admin">
+								Nate&apos;s Section
+							</NavButton>
 						)}
 					</Flex>
 					<Flex align={"center"} gap={5}>
