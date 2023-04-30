@@ -5,7 +5,7 @@ import { z } from "zod";
 import { createPlayer, createTeamSchema } from "~/server/db";
 import { Form } from "../../Form";
 import { Grid, useToast } from "@chakra-ui/react";
-import useSWR from "swr";
+import { mutate } from "swr";
 import { createPlayerSubmit } from "~/client/helpers/createPlayerSubmit";
 import { createTeamSubmit } from "~/client/helpers/createTeamSubmit";
 
@@ -25,6 +25,7 @@ const CreateTeam: React.FC<CreateTeamProps> = (props) => {
 
 		if (res.code === "200") {
 			rest.reset();
+			mutate("/api/v1/teams");
 			toast({
 				title: "Success!",
 				status: "success",

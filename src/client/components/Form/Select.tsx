@@ -46,7 +46,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
 					props.data.map((v) => (
 						<option
 							value={v[props.valueKey]}
-							key={new Date().toISOString()}
+							key={v[props.valueKey]}
 						>
 							{v[props.displayKey as string] || v}
 						</option>
