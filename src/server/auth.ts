@@ -34,13 +34,23 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
 	callbacks: {
-		session: ({ session, user }) => ({
-			...session,
-			user: {
-				...session.user,
-				role: user.role,
-			},
-		}),
+		session: ({ session, token, user, newSession }) => {
+			return {
+				...session,
+				user: {
+					...session.user,
+					/**
+					 * Forwhatever reason next auth will not pass the user object
+					 * from the credentails, so we passed the user role though the sub
+					 * value in the token object, since we don't have any ID for users.
+					 */
+					role: token.sub,
+				},
+			};
+		},
+	},
+	session: {
+		strategy: "jwt",
 	},
 	providers: [
 		CredentialsProvider({
@@ -52,16 +62,20 @@ export const authOptions: NextAuthOptions = {
 			// Check if the pin is correct.
 			authorize: async (credentials, req) => {
 				if (!credentials || !credentials.pin)
-					throw new Error("Could not find pin.");
+					throw new Error(
+						"Please try again, we could not find the pin."
+					);
 
 				// Check if the pin exist in the database.
 				const isValidPin = await verifyLoginPin(credentials.pin);
 
 				// Was not a valid pin, we return the null response from the function.
 				if (!isValidPin || isValidPin == null)
-					throw new Error("Pin is not valid.");
+					throw new Error(
+						"The pin your entered is incorrect, please try again."
+					);
 
-				return { role: isValidPin.role, id: "1" };
+				return { role: isValidPin.role, id: isValidPin.role };
 			},
 		}),
 	],

@@ -2,6 +2,8 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { ChakraProvider } from "@chakra-ui/react";
+import theme from "~/styles";
+import { SWRConfig } from "swr";
 
 const MyApp: AppType<{ session: Session | null }> = ({
 	Component,
@@ -9,9 +11,16 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
 	return (
 		<SessionProvider session={session}>
-			<ChakraProvider resetCSS>
-				<Component {...pageProps} />
-			</ChakraProvider>
+			<SWRConfig
+				value={{
+					fetcher: (resource, init) =>
+						fetch(resource, init).then((res) => res.json()),
+				}}
+			>
+				<ChakraProvider resetCSS theme={theme}>
+					<Component {...pageProps} />
+				</ChakraProvider>
+			</SWRConfig>
 		</SessionProvider>
 	);
 };

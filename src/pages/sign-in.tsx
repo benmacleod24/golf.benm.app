@@ -1,5 +1,10 @@
 import {
+	Alert,
+	AlertDescription,
+	AlertIcon,
+	AlertTitle,
 	Box,
+	CloseButton,
 	Flex,
 	HStack,
 	PinInput,
@@ -9,6 +14,7 @@ import {
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
+import ColorMode from "~/client/components/ColorMode";
 
 interface SignInPageProps {}
 
@@ -40,21 +46,30 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
 	return (
 		<Flex
 			bg="blackAlpha.50"
-			w="sm"
-			h="36"
+			minW="sm"
+			w="fit-content"
+			maxW="md"
 			p="7"
 			rounded={"lg"}
 			mx="auto"
 			mt="10%"
 			flexDir={"column"}
-			gap={3}
 			justify={"center"}
 			align={"center"}
 		>
 			<Text fontWeight={"bold"} fontSize="lg" mx="auto">
 				Riverview Golf League Portal
 			</Text>
-			<HStack>
+			<Text
+				fontSize="md"
+				mx="auto"
+				textAlign={"center"}
+				fontStyle={"italic"}
+			>
+				Please enter the login pin you were given.
+			</Text>
+
+			<HStack my="6">
 				<PinInput type="alphanumeric" mask onChange={onPinChange}>
 					<PinInputField />
 					<PinInputField />
@@ -62,6 +77,20 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
 					<PinInputField />
 				</PinInput>
 			</HStack>
+
+			{/* Simple Error Banner */}
+			{query.error && (
+				<Alert status="error" variant="subtle" rounded={"md"}>
+					<AlertIcon />
+					<AlertDescription fontSize="sm">
+						{message}
+					</AlertDescription>
+				</Alert>
+			)}
+
+			<Box pos="fixed" bottom="2" left="2">
+				<ColorMode />
+			</Box>
 		</Flex>
 	);
 };

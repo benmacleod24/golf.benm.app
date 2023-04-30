@@ -1,17 +1,8 @@
-import { Flex, HStack, PinInput, PinInputField } from "@chakra-ui/react";
 import { type NextPage } from "next";
-import { signIn, useSession } from "next-auth/react";
-import { useState } from "react";
+import { Container } from "~/client/components";
 
 const Home: NextPage = () => {
-	const { data, status, update } = useSession();
-	const isSessionLoaded = status === "authenticated";
-
-	return (
-		<Flex>
-			<pre>{JSON.stringify(data, null, 2)}</pre>
-		</Flex>
-	);
+	return <Container.Main>Test</Container.Main>;
 };
 
 export default Home;
