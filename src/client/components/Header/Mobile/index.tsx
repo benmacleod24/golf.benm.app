@@ -195,6 +195,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 										rounded="md"
 										align={"center"}
 										onClick={toggleColorMode}
+										cursor={"pointer"}
 									>
 										<Icon
 											as={icon[colorMode]}
@@ -212,6 +213,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 										rounded="md"
 										align={"center"}
 										onClick={() => signOut()}
+										cursor={"pointer"}
 									>
 										<Icon
 											as={MdLogout}
