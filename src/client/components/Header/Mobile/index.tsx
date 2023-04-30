@@ -15,6 +15,7 @@ import {
 	VStack,
 	useColorModeValue,
 	useColorMode,
+	Divider,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { Container } from "../../Container";
@@ -71,12 +72,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 	return (
 		<Container.Body>
 			<Flex w="full" h="full" align="center">
-				<Flex
-					align="center"
-					h="full"
-					flex={["1", "1", "0"]}
-					minW="fit-content"
-				>
+				<Flex align="center" h="full" minW="fit-content">
 					<Link href="/">
 						<Text
 							fontWeight={"bold"}
@@ -105,15 +101,10 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 						<DrawerBody mt="5" p="0">
 							<Flex
 								flexDir={"column"}
-								justify={"space-between"}
 								h="full"
+								// pb="20"
 							>
-								<Flex
-									gap={3}
-									w="full"
-									flexDir={"column"}
-									flex={1}
-								>
+								<Flex gap={3} w="full" flexDir={"column"}>
 									<Link href="/">
 										<Flex
 											bg={getColor("/")}
@@ -191,37 +182,44 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 										</Link>
 									)}
 								</Flex>
-								<Flex
-									p="4"
-									roundedTop="md"
-									align={"center"}
-									onClick={toggleColorMode}
-									borderTop="1px solid"
-									borderTopColor={borderColor}
-								>
-									<Icon
-										as={icon[colorMode]}
-										fontSize="2xl"
-										mr="5"
-									/>
-									<Text textTransform={"capitalize"}>
-										{colorMode}
-									</Text>
-								</Flex>
-								<Flex
-									p="4"
-									roundedTop="md"
-									align={"center"}
-									onClick={() => signOut()}
-									borderTop="1px solid"
-									borderTopColor={borderColor}
-								>
-									<Icon
-										as={MdLogout}
-										fontSize="2xl"
-										mr="5"
-									/>
-									<Text>Logout</Text>
+								<Divider
+									px="4"
+									boxSizing="border-box"
+									my="5"
+								/>
+								<Flex w="full" flexDir={"column"} gap={3}>
+									<Flex
+										p="3"
+										py="2"
+										mx="4"
+										rounded="md"
+										align={"center"}
+										onClick={toggleColorMode}
+									>
+										<Icon
+											as={icon[colorMode]}
+											fontSize="2xl"
+											mr="5"
+										/>
+										<Text textTransform={"capitalize"}>
+											{colorMode}
+										</Text>
+									</Flex>
+									<Flex
+										p="3"
+										py="2"
+										mx="4"
+										rounded="md"
+										align={"center"}
+										onClick={() => signOut()}
+									>
+										<Icon
+											as={MdLogout}
+											fontSize="2xl"
+											mr="5"
+										/>
+										<Text>Logout</Text>
+									</Flex>
 								</Flex>
 							</Flex>
 						</DrawerBody>
