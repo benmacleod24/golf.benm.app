@@ -72,7 +72,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 	return (
 		<Container.Body>
 			<Flex w="full" h="full" align="center">
-				<Flex align="center" h="full" minW="fit-content">
+				<Flex align="center" h="full" minW="fit-content" flex={1}>
 					<Link href="/">
 						<Text
 							fontWeight={"bold"}
