@@ -1,6 +1,8 @@
+import { create } from "domain";
 import { NextApiRequest, NextApiResponse } from "next";
-import { createPlayer } from "~/server/db";
-import { getPlayers } from "~/server/db/getPlayers";
+import { z } from "zod";
+import { prisma } from "~/server/db";
+import { createRoundCard } from "~/server/db/createRoundCard";
 import { response } from "~/server/helpers";
 import { isAdmin } from "~/server/helpers/isAdmin";
 
@@ -8,8 +10,6 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 	const { method } = req;
 
 	switch (method) {
-		case "GET":
-			return GET(req, res);
 		case "POST":
 			return POST(req, res);
 		default:
@@ -18,30 +18,12 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 /**
- * @method GET
- * @url /api/v1/players
- * @description Get all the teams
- */
-const GET = async (req: NextApiRequest, res: NextApiResponse) => {
-	const players = await getPlayers();
-
-	return res.status(200).json(
-		response({
-			code: "200",
-			data: players || [],
-		})
-	);
-};
-
-/**
  * @method POST
- * @url /api/v1/player
- * @description Create a new player
+ * @url /api/v1/round-card
+ * @description Create a new round card.
  */
 const POST = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { firstName, lastName, teamId } = createPlayer.schema.parse(
-		JSON.parse(req.body)
-	);
+	const body = createRoundCard.schema.parse(JSON.parse(req.body));
 
 	// No access to this endpoint.
 	if (!(await isAdmin({ req, res }))) {
@@ -53,16 +35,22 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 		);
 	}
 
-	const newPlayer = await createPlayer(
-		{ firstName, lastName },
-		teamId as number
-	);
+	if (!z.coerce.date().safeParse(body.date)) {
+		return res.status(400).json(
+			response({
+				code: "400",
+				message: "Invalid date.",
+			})
+		);
+	}
 
-	if (!newPlayer || newPlayer === null) {
+	const roundCard = await createRoundCard(body);
+
+	if (!roundCard) {
 		return res.status(500).json(
 			response({
 				code: "500",
-				message: "Error occued while creating player, try again.",
+				message: "Error occured while creating new round card.",
 			})
 		);
 	}
@@ -70,8 +58,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 	return res.status(200).json(
 		response({
 			code: "200",
-			data: newPlayer,
-			message: "Created new player!",
+			data: roundCard,
 		})
 	);
 };

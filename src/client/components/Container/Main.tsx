@@ -3,8 +3,11 @@ import { Container } from ".";
 import Header from "../Header";
 import { Flex } from "@chakra-ui/react";
 import MetaTags from "../Meta";
+import Head from "next/head";
 
-interface ContainerMainProps {}
+interface ContainerMainProps {
+	title?: string;
+}
 
 /**
  * @description The main container for the application.
@@ -16,7 +19,9 @@ const ContainerMain: React.FC<React.PropsWithChildren<ContainerMainProps>> = (
 	return (
 		<Flex w="full" flexDir="column">
 			<Header />
-			<Container.Body>{props.children}</Container.Body>
+			<Container.Body title={props.title}>
+				{props.children}
+			</Container.Body>
 		</Flex>
 	);
 };
