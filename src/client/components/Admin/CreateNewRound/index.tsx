@@ -75,6 +75,7 @@ const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
 						name="date"
 						register={register}
 						title="When did this happen?"
+						placeholder="DD/MM/YY"
 					/>
 				</Grid>
 				<Form.SubmitButton

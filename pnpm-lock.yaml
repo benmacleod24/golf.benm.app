@@ -25,6 +25,9 @@ dependencies:
   '@prisma/client':
     specifier: ^4.11.0
     version: 4.11.0(prisma@4.11.0)
+  '@skinnypete/color':
+    specifier: ^1.0.3
+    version: 1.0.3
   '@t3-oss/env-nextjs':
     specifier: ^0.2.1
     version: 0.2.1(zod@3.21.4)
@@ -52,6 +55,9 @@ dependencies:
   react-icons:
     specifier: ^4.8.0
     version: 4.8.0(react@18.2.0)
+  simple-color-functions:
+    specifier: ^0.5.1
+    version: 0.5.1
   swr:
     specifier: ^2.1.5
     version: 2.1.5(react@18.2.0)
@@ -1634,6 +1640,10 @@ packages:
   /@rushstack/eslint-patch@1.2.0:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: true
+
+  /@skinnypete/color@1.0.3:
+    resolution: {integrity: sha512-J1MTViT0It6yy8DBErVpGtMB3WRcEkffsEVG4ROtdmJ/gSiWIWt6sATMO2taWh5hm5hoSKuHLEQ9Q3mi1wK8jg==}
+    dev: false
 
   /@swc/helpers@0.4.14:
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}
@@ -3815,6 +3825,10 @@ packages:
       get-intrinsic: 1.2.0
       object-inspect: 1.12.3
     dev: true
+
+  /simple-color-functions@0.5.1:
+    resolution: {integrity: sha512-t67Ltd6zk977Z3XcYlkS7FhRqFfdXynqeIb6UBx3ieTDPtsTdgtVIE0u+P5Ht2gyX1ChNL91bmrgmchAp1ViJg==}
+    dev: false
 
   /slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}

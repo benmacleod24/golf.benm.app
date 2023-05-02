@@ -54,7 +54,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 	if (isLargerThan768) return null;
 
 	const getColor = (pathname: string): BackgroundProps["bg"] => {
-		if (router.pathname === pathname) return "whatsapp.600";
+		if (router.pathname === pathname) return "brand.700";
 		return "transparent";
 	};
 

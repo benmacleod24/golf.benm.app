@@ -12,8 +12,9 @@ interface NatePageProps {}
 const NatePage: React.FC<NatePageProps> = (props) => {
 	return (
 		<Container.Main title="Admin Portal | RGL">
+			<Admin.NewRound />
 			<Grid
-				mb="8"
+				mt="8"
 				templateColumns={[
 					"repeat(1, 1fr)",
 					null,
@@ -25,7 +26,6 @@ const NatePage: React.FC<NatePageProps> = (props) => {
 				<Admin.CreatePlayer />
 				<Admin.CreateTeam />
 			</Grid>
-			<Admin.NewRound />
 		</Container.Main>
 	);
 };
