@@ -8,7 +8,7 @@ export const createRoundCard = async (data: z.infer<typeof schema>) => {
 	if (!playerId || !score) return null;
 
 	try {
-		const roundCard = await prisma.round_Card.create({
+		const roundCard = await prisma.scorecard.create({
 			data: {
 				date,
 				playerId,
