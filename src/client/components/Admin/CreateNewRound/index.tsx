@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Admin } from "..";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,68 +27,72 @@ const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
 	};
 
 	// Filters out correct people for search input.
-	const sortSearchInput = (v: string): { text: string; value: any }[] => {
-		if (!data || !data.data) return [];
-		return data.data
-			.filter((p) => {
-				const combinedName = p.firstName + " " + p.lastName;
-				if (combinedName.toUpperCase().includes(v.toUpperCase()))
-					return p;
-			})
-			.map((p) => {
-				return { text: p.firstName + " " + p.lastName, value: p.id };
-			});
-	};
+	const sortSearchInput = useCallback(
+		(v: string): { text: string; value: any }[] => {
+			console.log(data);
+			if (!data || !data.data) return [];
+			return data.data
+				.filter((p) => {
+					const combinedName = p.firstName + " " + p.lastName;
+					if (combinedName.toUpperCase().includes(v.toUpperCase()))
+						return p;
+				})
+				.map((p) => {
+					return {
+						text: p.firstName + " " + p.lastName,
+						value: p.id,
+					};
+				});
+		},
+		[data]
+	);
 
 	return (
 		<Admin.Section title="New Round Score">
-			<Flex
-				flexDir={"column"}
-				as="form"
-				w="full"
-				onSubmit={handleSubmit(onSubmit)}
-			>
-				<Grid
-					templateColumns={[null, null, "repeat(3, 1fr)"]}
-					w="full"
-					gap={5}
-				>
-					<Form.SearchInput
-						inputProps={{
-							formState,
-							name: "playerId",
-							register,
-							title: "What Player?",
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Flex flexDir={"column"} w="full">
+					<Grid
+						templateColumns={[null, null, "repeat(3, 1fr)"]}
+						w="full"
+						gap={5}
+					>
+						<Form.SearchInput
+							inputProps={{
+								formState,
+								name: "playerId",
+								register,
+								title: "What Player?",
+							}}
+							openOnFocus
+							sort={sortSearchInput}
+							onClick={(v) => rest.setValue("playerId", v)}
+						/>
+						<Form.TextInput
+							formState={formState}
+							name="score"
+							register={register}
+							title="What was the score?"
+						/>
+						<Form.TextInput
+							formState={formState}
+							name="date"
+							register={register}
+							title="When did this happen?"
+							placeholder="DD/MM/YY"
+						/>
+					</Grid>
+					<Form.SubmitButton
+						formState={formState}
+						buttonProps={{
+							colorScheme: "whatsapp",
+							w: [null, null, null, "md"],
+							mt: "7",
 						}}
-						openOnFocus
-						sort={sortSearchInput}
-						onClick={(v) => rest.setValue("playerId", v)}
-					/>
-					<Form.TextInput
-						formState={formState}
-						name="score"
-						register={register}
-						title="What was the score?"
-					/>
-					<Form.TextInput
-						formState={formState}
-						name="date"
-						register={register}
-						title="When did this happen?"
-						placeholder="DD/MM/YY"
-					/>
-				</Grid>
-				<Form.SubmitButton
-					formState={formState}
-					buttonProps={{
-						colorScheme: "whatsapp",
-						w: [null, null, null, "md"],
-						mt: "7",
-					}}
-				>
-					Submit Score
-				</Form.SubmitButton>
-			</Flex>
+					>
+						Submit Score
+					</Form.SubmitButton>
+				</Flex>
+			</form>
 		</Admin.Section>
 	);
 };

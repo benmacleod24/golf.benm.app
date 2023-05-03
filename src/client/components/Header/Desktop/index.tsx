@@ -49,7 +49,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = (props) => {
 					display={["none", "none", "flex"]}
 				>
 					<NavButton href="/">Home</NavButton>
-					<NavButton href="/teams">Teams</NavButton>
+					<NavButton href="/hndcp">Handicap Report</NavButton>
 					<NavButton href="/players">Players</NavButton>
 					{isLoaded && isAdmin && (
 						<NavButton href="/admin">

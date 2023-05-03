@@ -25,6 +25,8 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {
 	const players = await getPlayers();
 
+	console.log(players);
+
 	return res.status(200).json(
 		response({
 			code: "200",

@@ -19,14 +19,14 @@ const FormSubmitButton: React.FC<
 > = ({ formState, children, buttonProps }) => {
 	return (
 		<Button
-			type="submit"
 			isLoading={formState.isSubmitting}
 			bg="brand.700"
 			color="white"
-			as={motion.div}
+			as={motion.button}
 			whileTap={{ scale: 0.8 }}
 			_hover={{ bg: RGBA.fromHex("#cf4044").darken(10).toString() }}
 			{...buttonProps}
+			type="submit"
 		>
 			{children}
 		</Button>

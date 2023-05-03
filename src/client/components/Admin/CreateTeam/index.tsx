@@ -51,6 +51,7 @@ const CreateTeam: React.FC<CreateTeamProps> = (props) => {
 						colorScheme: "whatsapp",
 						w: "full",
 						mt: "5",
+						type: "submit",
 					}}
 				>
 					Create Team

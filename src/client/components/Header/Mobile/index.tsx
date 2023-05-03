@@ -125,20 +125,20 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 									</Link>
 									<Link href="/teams">
 										<Flex
-											bg={getColor("/teams")}
+											bg={getColor("/hndcp")}
 											p="3"
 											py="2"
 											mx="4"
 											rounded="md"
 											align={"center"}
-											color={getFontColor("/teams")}
+											color={getFontColor("/hndcp")}
 										>
 											<Icon
 												as={HiRectangleGroup}
 												fontSize="2xl"
 												mr="5"
 											/>
-											<Text>Teams</Text>
+											<Text>Handicap Report</Text>
 										</Flex>
 									</Link>
 									<Link href="/players">
