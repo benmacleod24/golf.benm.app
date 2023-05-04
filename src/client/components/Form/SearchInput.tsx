@@ -57,17 +57,16 @@ const SearchInput: React.FC<SearchInputProps> = (props) => {
 				<FormLabel htmlFor="search-player">What Player?</FormLabel>
 				<InputGroup>
 					<InputRightElement
-						children={
-							selected.length > 0 ? (
-								<Icon as={AiOutlineClose} />
-							) : null
-						}
 						onClick={() => {
 							setSelected("");
 							setFilter("");
 							setOpen(false);
 						}}
-					/>
+					>
+						{selected.length > 0 ? (
+							<Icon as={AiOutlineClose} />
+						) : null}
+					</InputRightElement>
 					<Input
 						autoComplete="off"
 						pointerEvents={selected.length > 0 ? "none" : "all"}

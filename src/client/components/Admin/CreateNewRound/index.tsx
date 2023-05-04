@@ -5,7 +5,7 @@ import { z } from "zod";
 import { createRoundCard } from "~/server/db/createRoundCard";
 import { Form } from "../../Form";
 import useSWR from "swr";
-import { Player } from "@prisma/client";
+import { Team_Member } from "@prisma/client";
 import { Flex, Grid } from "@chakra-ui/react";
 
 interface CreateNewRoundProps {}
@@ -20,7 +20,7 @@ const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
 	const { register, handleSubmit, formState, ...rest } =
 		useForm<NewRoundFormData>();
 
-	const { data } = useSWR<{ data: Player[] }>("/api/v1/players");
+	const { data } = useSWR<{ data: Team_Member[] }>("/api/v1/players");
 
 	const onSubmit = async (data: NewRoundFormData) => {
 		alert(JSON.stringify(data, null, 2));

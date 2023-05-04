@@ -53,6 +53,7 @@ model Team_Member {
   A_or_B    A_or_B
 
   team Team @relation(fields: [teamId], references: [id])
+  scorecards Scorecard[]
 
   @@index([teamId])
 }
@@ -62,6 +63,8 @@ model Scorecard {
   playerId Int
   score    Int
   date     DateTime
+
+  teamMember Team_Member @relation(fields: [playerId], references: [id])
 }
 
 enum UserRoles {

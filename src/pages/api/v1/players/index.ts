@@ -55,10 +55,11 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 		);
 	}
 
-	const newPlayer = await createPlayer(
-		{ firstName, lastName },
-		teamId as number
-	);
+	const newPlayer = await createPlayer({
+		firstName,
+		lastName,
+		teamId: teamId as number,
+	});
 
 	if (!newPlayer || newPlayer === null) {
 		return res.status(500).json(

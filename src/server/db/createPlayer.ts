@@ -24,7 +24,7 @@ const schema = z.object({
 	firstName: z.string(),
 	lastName: z.string(),
 	teamId: z.string().transform(stringToNumber),
-	A_or_B: z.string(),
+	A_or_B: z.ostring(),
 });
 
 createPlayer.schema = schema;

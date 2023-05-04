@@ -1,5 +1,5 @@
 import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface TableWrapperProps {}
 
@@ -15,7 +15,9 @@ const TableWrapper: React.FC<React.PropsWithChildren<TableWrapperProps>> = (
 			<Table>
 				<Thead>
 					<Tr>
-						<Th>Name</Th>
+						<Th pos="sticky" left="0" top="0" bg="gray.800">
+							Name
+						</Th>
 						<Th></Th>
 						<Th isNumeric>Week A</Th>
 						<Th isNumeric>Week B</Th>

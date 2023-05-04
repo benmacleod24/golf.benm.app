@@ -1,4 +1,4 @@
-import { Td, Tr } from "@chakra-ui/react";
+import { Td, Tr, Text } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 
 interface HandicapPlayerProps {}
@@ -11,16 +11,47 @@ const HandicapPlayer: React.FC<HandicapPlayerProps> = (props) => {
 	return (
 		<React.Fragment>
 			<Tr>
-				<Td color="brand.700" fontWeight={"bold"}>
+				<Td
+					fontWeight={"bold"}
+					pos="sticky"
+					left="0"
+					top="0"
+					bg="#232934"
+				>
 					Nate Moore
 				</Td>
 				<Td></Td>
-				<Td isNumeric>38</Td>
-				<Td isNumeric>40</Td>
-				<Td isNumeric>42</Td>
-				<Td isNumeric>39</Td>
-				<Td isNumeric>38</Td>
-				<Td isNumeric></Td>
+				<Td isNumeric color="gray.400">
+					<Text fontSize={"sm"}>38</Text>
+					<Text fontSize="sm" color="gray.600" fontStyle={"italic"}>
+						3/2/23
+					</Text>
+				</Td>
+				<Td isNumeric color="gray.400">
+					<Text fontSize={"sm"}>38</Text>
+					<Text fontSize="sm" color="gray.600" fontStyle={"italic"}>
+						3/2/23
+					</Text>
+				</Td>
+				<Td isNumeric color="gray.400">
+					<Text fontSize={"sm"}>38</Text>
+					<Text fontSize="sm" color="gray.600" fontStyle={"italic"}>
+						3/2/23
+					</Text>
+				</Td>
+				<Td isNumeric color="gray.400">
+					<Text fontSize={"sm"}>38</Text>
+					<Text fontSize="sm" color="gray.600" fontStyle={"italic"}>
+						3/2/23
+					</Text>
+				</Td>
+				<Td isNumeric color="gray.400">
+					<Text fontSize={"sm"}>38</Text>
+					<Text fontSize="sm" color="gray.600" fontStyle={"italic"}>
+						3/2/23
+					</Text>
+				</Td>
+				<Td isNumeric color="gray.400"></Td>
 				<Td isNumeric fontWeight={"bold"}>
 					197
 				</Td>
