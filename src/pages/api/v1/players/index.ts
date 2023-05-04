@@ -41,9 +41,7 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
  * @description Create a new player
  */
 const POST = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { firstName, lastName, teamId } = createPlayer.schema.parse(
-		JSON.parse(req.body)
-	);
+	const data = createPlayer.schema.parse(JSON.parse(req.body));
 
 	// No access to this endpoint.
 	if (!(await isAdmin({ req, res }))) {
@@ -55,11 +53,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 		);
 	}
 
-	const newPlayer = await createPlayer({
-		firstName,
-		lastName,
-		teamId: teamId as number,
-	});
+	const newPlayer = await createPlayer(data);
 
 	if (!newPlayer || newPlayer === null) {
 		return res.status(500).json(
