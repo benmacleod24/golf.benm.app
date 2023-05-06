@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { createPlayer } from "~/server/db";
 import { Form } from "../../Form";
-import { Grid, useToast } from "@chakra-ui/react";
+import { Flex, Grid, useToast } from "@chakra-ui/react";
 import useSWR from "swr";
 import { createPlayerSubmit } from "~/client/helpers/createPlayerSubmit";
 
@@ -54,16 +54,27 @@ const CreatePlayer: React.FC<CreatePlayerProps> = (props) => {
 						title="Last Name"
 					/>
 				</Grid>
-				<Form.Select
-					formState={formState}
-					name="teamId"
-					register={register}
-					title="Team"
-					valueKey="id"
-					displayKey="name"
-					data={(data && data.data) || []}
-					placeholder="Select a Team"
-				/>
+				<Flex gap={5} flexDir={"column"}>
+					<Form.Select
+						formState={formState}
+						name="teamId"
+						register={register}
+						title="Team"
+						valueKey="id"
+						displayKey="name"
+						data={(data && data.data) || []}
+						placeholder="Select a Team"
+					/>
+					<Form.Select
+						formState={formState}
+						name="A_or_B"
+						register={register}
+						title="A or B Player?"
+						valueKey="id"
+						displayKey="name"
+						data={["A", "B"]}
+					/>
+				</Flex>
 				<Form.SubmitButton
 					formState={formState}
 					buttonProps={{

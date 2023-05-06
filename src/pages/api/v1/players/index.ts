@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createPlayer } from "~/server/db";
+import { getPlayers } from "~/server/db/getPlayers";
 import { response } from "~/server/helpers";
 import { isAdmin } from "~/server/helpers/isAdmin";
 
@@ -7,6 +8,8 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 	const { method } = req;
 
 	switch (method) {
+		case "GET":
+			return GET(req, res);
 		case "POST":
 			return POST(req, res);
 		default:
@@ -15,14 +18,30 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 /**
+ * @method GET
+ * @url /api/v1/players
+ * @description Get all the teams
+ */
+const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+	const players = await getPlayers();
+
+	console.log(players);
+
+	return res.status(200).json(
+		response({
+			code: "200",
+			data: players || [],
+		})
+	);
+};
+
+/**
  * @method POST
  * @url /api/v1/player
  * @description Create a new player
  */
 const POST = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { firstName, lastName, teamId } = createPlayer.schema.parse(
-		JSON.parse(req.body)
-	);
+	const data = createPlayer.schema.parse(JSON.parse(req.body));
 
 	// No access to this endpoint.
 	if (!(await isAdmin({ req, res }))) {
@@ -34,10 +53,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 		);
 	}
 
-	const newPlayer = await createPlayer(
-		{ firstName, lastName },
-		teamId as number
-	);
+	const newPlayer = await createPlayer(data);
 
 	if (!newPlayer || newPlayer === null) {
 		return res.status(500).json(

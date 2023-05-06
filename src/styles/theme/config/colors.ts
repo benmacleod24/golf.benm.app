@@ -6,6 +6,6 @@ export const colors = {
 		500: "#4d4d4d",
 	},
 	brand: {
-		700: "#3993DD",
+		700: "#cf4044",
 	},
 };

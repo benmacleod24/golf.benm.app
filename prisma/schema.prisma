@@ -6,14 +6,65 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
-model LoginPins {
+model Golf_Course {
+  courseId   Int    @id @default(autoincrement())
+  courseName String
+  par        Int
+  holeCount  Int?
+}
+
+model Tee_Time {
+  teeTimeId Int      @id @default(autoincrement())
+  time      DateTime
+
+  teamOneId Int
+  teamTwoId Int
+  teamAsOne Team @relation(fields: [teamOneId], references: [id], name: "TeamAsOne")
+  teamAsTwo Team @relation(fields: [teamTwoId], references: [id], name: "TeamAsTwo")
+
+  @@index([teamTwoId])
+  @@index([teamOneId])
+}
+
+model Login_Pin {
   pin  String    @id
   role UserRoles @default(GOLFER)
+}
+
+model Team {
+  id         Int           @id @default(autoincrement())
+  name       String
+  teamMember Team_Member[]
+
+  teeTimeAsOne Tee_Time[] @relation(name: "TeamAsOne")
+  teeTimeAsTwo Tee_Time[] @relation(name: "TeamAsTwo")
+}
+
+model Team_Member {
+  id        Int    @id @default(autoincrement())
+  firstName String
+  lastName  String
+  teamId    Int
+  A_or_B    A_or_B
+
+  team Team @relation(fields: [teamId], references: [id])
+  scorecards Scorecard[]
+
+  @@index([teamId])
+}
+
+model Scorecard {
+  id       String   @id @default(cuid())
+  playerId Int
+  score    Int
+  date     DateTime
+
+  teamMember Team_Member @relation(fields: [playerId], references: [id])
 }
 
 enum UserRoles {
@@ -21,24 +72,7 @@ enum UserRoles {
   GOLFER
 }
 
-model Team {
-  id      Int      @id @default(autoincrement())
-  name    String
-  players Player[]
-}
-
-model Player {
-  id        Int    @id @default(autoincrement())
-  firstName String
-  lastName  String
-  teamId    Int
-
-  team Team @relation(fields: [teamId], references: [id])
-}
-
-model Round_Card {
-  id       String   @id @default(cuid())
-  playerId Int
-  score    Int
-  date     DateTime
+enum A_or_B {
+  A
+  B
 }
