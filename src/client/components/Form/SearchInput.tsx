@@ -7,6 +7,7 @@ import {
 	InputGroup,
 	InputRightElement,
 	Text,
+	useColorModeValue,
 	useOutsideClick,
 } from "@chakra-ui/react";
 import React, { useState, useEffect, useRef, useMemo } from "react";
@@ -34,6 +35,8 @@ const SearchInput: React.FC<SearchInputProps> = (props) => {
 	const [debouncedFilter] = useDebounce(filter, 1000);
 	const [animateRef] = useAutoAnimate();
 	const ref = useRef();
+
+	const bg = useColorModeValue("gray.200", "gray.700");
 
 	useOutsideClick({
 		ref: ref as any,
@@ -92,7 +95,7 @@ const SearchInput: React.FC<SearchInputProps> = (props) => {
 			<Flex
 				pointerEvents={isOpen ? "all" : "none"}
 				w="full"
-				bg="gray.700"
+				bg={bg}
 				pos="absolute"
 				top="115%"
 				rounded={"md"}

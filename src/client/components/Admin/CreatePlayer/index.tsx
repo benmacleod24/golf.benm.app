@@ -21,13 +21,14 @@ const CreatePlayer: React.FC<CreatePlayerProps> = (props) => {
 		useForm<CreatePlayerFormData>();
 	const toast = useToast();
 
-	const { data, isLoading } = useSWR("/api/v1/teams");
+	const { data, isLoading, mutate } = useSWR("/api/v1/teams");
 
 	const onSubmit = async (data: CreatePlayerFormData) => {
 		const res = await createPlayerSubmit(data);
 
 		if (res.code === "200") {
 			rest.reset();
+			mutate();
 			toast({
 				title: "Success!",
 				status: "success",
