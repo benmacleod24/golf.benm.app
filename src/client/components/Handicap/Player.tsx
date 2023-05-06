@@ -1,7 +1,22 @@
 import { Td, Tr, Text } from "@chakra-ui/react";
+import { A_or_B, Scorecard } from "@prisma/client";
+import dayjs from "dayjs";
 import React, { useState, useEffect } from "react";
 
-interface HandicapPlayerProps {}
+export type Player = {
+	id: number;
+	firstName: string;
+	lastName: string;
+	teamId: number;
+	A_or_B: A_or_B;
+	scorecards: Scorecard[];
+	totalScore: number;
+	handicap: number;
+};
+
+interface HandicapPlayerProps {
+	player: Player;
+}
 
 /**
  * @description Player container for handicap report.
@@ -18,45 +33,28 @@ const HandicapPlayer: React.FC<HandicapPlayerProps> = (props) => {
 					top="0"
 					bg="#232934"
 				>
-					Nate Moore
+					{props.player.firstName} {props.player.lastName}
 				</Td>
 				<Td></Td>
-				<Td isNumeric color="gray.400">
-					<Text fontSize={"sm"}>38</Text>
-					<Text fontSize="sm" color="gray.600" fontStyle={"italic"}>
-						3/2/23
-					</Text>
-				</Td>
-				<Td isNumeric color="gray.400">
-					<Text fontSize={"sm"}>38</Text>
-					<Text fontSize="sm" color="gray.600" fontStyle={"italic"}>
-						3/2/23
-					</Text>
-				</Td>
-				<Td isNumeric color="gray.400">
-					<Text fontSize={"sm"}>38</Text>
-					<Text fontSize="sm" color="gray.600" fontStyle={"italic"}>
-						3/2/23
-					</Text>
-				</Td>
-				<Td isNumeric color="gray.400">
-					<Text fontSize={"sm"}>38</Text>
-					<Text fontSize="sm" color="gray.600" fontStyle={"italic"}>
-						3/2/23
-					</Text>
-				</Td>
-				<Td isNumeric color="gray.400">
-					<Text fontSize={"sm"}>38</Text>
-					<Text fontSize="sm" color="gray.600" fontStyle={"italic"}>
-						3/2/23
-					</Text>
-				</Td>
+				{props.player.scorecards.map((c) => (
+					<Td isNumeric color="gray.400">
+						<Text fontSize={"sm"}>{c.score}</Text>
+						<Text
+							fontSize="sm"
+							color="gray.600"
+							fontStyle={"italic"}
+						>
+							{dayjs(c.date).format("MM/DD/YYYY")}
+						</Text>
+					</Td>
+				))}
+
 				<Td isNumeric color="gray.400"></Td>
 				<Td isNumeric fontWeight={"bold"}>
-					197
+					{props.player.totalScore}
 				</Td>
 				<Td isNumeric color="brand.700" fontWeight={"bold"}>
-					3
+					{props.player.handicap}
 				</Td>
 			</Tr>
 		</React.Fragment>

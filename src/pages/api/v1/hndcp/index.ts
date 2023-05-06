@@ -20,7 +20,9 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {
 	const data = await generateHndcpReport("A");
 
-	return res.status(200).json(data);
+	res.status(200).json(data);
+	return data;
 };
 
+export { GET as getHndcpReport };
 export default handler;
