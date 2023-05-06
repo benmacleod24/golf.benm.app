@@ -6,7 +6,8 @@ import { createRoundCard } from "~/server/db/createRoundCard";
 import { Form } from "../../Form";
 import useSWR from "swr";
 import { Team_Member } from "@prisma/client";
-import { Flex, Grid } from "@chakra-ui/react";
+import { Flex, Grid, useToast } from "@chakra-ui/react";
+import { stringToNumber } from "~/server/helpers";
 
 interface CreateNewRoundProps {}
 
@@ -19,11 +20,27 @@ type NewRoundFormData = z.infer<typeof createRoundCard.schema>;
 const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
 	const { register, handleSubmit, formState, ...rest } =
 		useForm<NewRoundFormData>();
+	const toast = useToast();
 
 	const { data } = useSWR<{ data: Team_Member[] }>("/api/v1/players");
 
 	const onSubmit = async (data: NewRoundFormData) => {
-		alert(JSON.stringify(data, null, 2));
+		data.score = Number(data.score);
+
+		const res = await fetch("/api/v1/scorecard", {
+			method: "POST",
+			body: JSON.stringify([data]),
+		}).then((r) => r.json());
+
+		if (res.code === "200") {
+			rest.reset();
+			toast({
+				title: "Success!",
+				status: "success",
+				description: "Successfully created score.",
+				position: "bottom-right",
+			});
+		}
 	};
 
 	// Filters out correct people for search input.

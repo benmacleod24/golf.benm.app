@@ -54,7 +54,7 @@ const HandicapPlayer: React.FC<HandicapPlayerProps> = (props) => {
 					{props.player.totalScore}
 				</Td>
 				<Td isNumeric color="brand.700" fontWeight={"bold"}>
-					{props.player.handicap}
+					{props.player.handicap}{" "}
 				</Td>
 			</Tr>
 		</React.Fragment>
