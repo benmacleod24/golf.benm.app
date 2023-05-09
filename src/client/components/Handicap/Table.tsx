@@ -1,4 +1,12 @@
-import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+	Table,
+	TableContainer,
+	Tbody,
+	Th,
+	Thead,
+	Tr,
+	useColorModeValue,
+} from "@chakra-ui/react";
 import React, { useState, useEffect, useRef } from "react";
 
 interface TableWrapperProps {}
@@ -10,12 +18,14 @@ interface TableWrapperProps {}
 const TableWrapper: React.FC<React.PropsWithChildren<TableWrapperProps>> = (
 	props
 ) => {
+	const bg = useColorModeValue("gray.100", "gray.800");
+
 	return (
 		<TableContainer>
 			<Table>
 				<Thead>
 					<Tr>
-						<Th pos="sticky" left="0" top="0" bg="gray.800">
+						<Th pos="sticky" left="0" top="0" bg={bg}>
 							Name
 						</Th>
 						<Th></Th>

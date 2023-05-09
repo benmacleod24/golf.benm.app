@@ -33,8 +33,6 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	scorecards[0]!.date = new Date(scorecards[0]!.date);
 
-	console.log(scorecards);
-
 	const scorecardResults = await createBatchScorecards(scorecards);
 
 	if (!scorecardResults) {

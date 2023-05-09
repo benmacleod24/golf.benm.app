@@ -1,4 +1,4 @@
-import { Td, Tr, Text } from "@chakra-ui/react";
+import { Td, Tr, Text, useColorModeValue } from "@chakra-ui/react";
 import { A_or_B, Scorecard } from "@prisma/client";
 import dayjs from "dayjs";
 import React, { useState, useEffect } from "react";
@@ -23,16 +23,12 @@ interface HandicapPlayerProps {
  * @return {React.FC<HandicapPlayer>}
  */
 const HandicapPlayer: React.FC<HandicapPlayerProps> = (props) => {
+	const bg = useColorModeValue("gray.100", "#232934");
+
 	return (
 		<React.Fragment>
 			<Tr>
-				<Td
-					fontWeight={"bold"}
-					pos="sticky"
-					left="0"
-					top="0"
-					bg="#232934"
-				>
+				<Td fontWeight={"bold"} pos="sticky" left="0" top="0" bg={bg}>
 					{props.player.firstName} {props.player.lastName}
 				</Td>
 				<Td></Td>
@@ -54,7 +50,7 @@ const HandicapPlayer: React.FC<HandicapPlayerProps> = (props) => {
 					{props.player.totalScore}
 				</Td>
 				<Td isNumeric color="brand.700" fontWeight={"bold"}>
-					{props.player.handicap}
+					{props.player.handicap}{" "}
 				</Td>
 			</Tr>
 		</React.Fragment>

@@ -123,7 +123,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 											<Text>Home</Text>
 										</Flex>
 									</Link>
-									<Link href="/teams">
+									<Link href="/hndcp">
 										<Flex
 											bg={getColor("/hndcp")}
 											p="3"
