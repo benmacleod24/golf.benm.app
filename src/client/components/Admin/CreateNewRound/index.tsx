@@ -6,7 +6,14 @@ import { createRoundCard } from "~/server/db/createRoundCard";
 import { Form } from "../../Form";
 import useSWR from "swr";
 import { Team_Member } from "@prisma/client";
-import { Flex, Grid, Icon, IconButton } from "@chakra-ui/react";
+import {
+	Flex,
+	Grid,
+	Icon,
+	IconButton,
+	useColorModeValue,
+	useToast,
+} from "@chakra-ui/react";
 import { FaTrashAlt, FaPlus } from "react-icons/fa";
 import { HiOutlinePlus } from "react-icons/hi";
 
@@ -21,6 +28,8 @@ type NewRoundFormData = z.infer<typeof createRoundCard.schema>;
 const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
 	const [scores, setScores] = useState<NewRoundFormData[]>([]);
 	const [loading, setIsLoading] = useState<boolean>(false);
+	const toast = useToast();
+	const borderColor = useColorModeValue("blackAlpha.700", "whiteAlpha.400");
 
 	const { data, isLoading } = useSWR<{ data: Team_Member[] }>(
 		"/api/v1/players"
@@ -47,7 +56,15 @@ const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
 			body: JSON.stringify(scores),
 		}).then((r) => r.json());
 
-		console.log(res);
+		if (res.code === "200") {
+			setScores([]);
+			toast({
+				title: "Success!",
+				status: "success",
+				description: "Added Scores Successfully!",
+				position: "bottom-right",
+			});
+		}
 
 		setIsLoading(false);
 	};
@@ -133,7 +150,7 @@ const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
 					variant={"outline"}
 					border="2px dashed"
 					py="5"
-					borderColor={"whiteAlpha.400"}
+					borderColor={borderColor}
 					onClick={() => {
 						setScores([
 							...scores,

@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 interface FormSubmitButtonProps {
 	formState?: FormState<any>;
 	buttonProps?: ButtonProps;
+	isLoading?: boolean;
 	onClick?: () => void;
 }
 
@@ -20,7 +21,9 @@ const FormSubmitButton: React.FC<
 > = ({ formState, children, buttonProps, ...props }) => {
 	return (
 		<Button
-			isLoading={formState ? formState.isSubmitting : false}
+			isLoading={
+				formState ? formState.isSubmitting : props.isLoading || false
+			}
 			bg="brand.700"
 			color="white"
 			as={motion.button}
