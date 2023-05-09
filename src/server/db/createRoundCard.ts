@@ -25,6 +25,6 @@ export const createRoundCard = async (data: z.infer<typeof schema>) => {
 const schema = z.object({
 	playerId: z.string().transform(stringToNumber),
 	score: z.string().transform(stringToNumber),
-	date: z.string().transform((str) => new Date(str)),
+	date: z.string(),
 });
 createRoundCard.schema = schema;

@@ -6,8 +6,10 @@ import { RGBA } from "@skinnypete/color";
 import { motion } from "framer-motion";
 
 interface FormSubmitButtonProps {
-	formState: FormState<any>;
+	formState?: FormState<any>;
 	buttonProps?: ButtonProps;
+	isLoading?: boolean;
+	onClick?: () => void;
 }
 
 /**
@@ -16,10 +18,12 @@ interface FormSubmitButtonProps {
  */
 const FormSubmitButton: React.FC<
 	React.PropsWithChildren<FormSubmitButtonProps>
-> = ({ formState, children, buttonProps }) => {
+> = ({ formState, children, buttonProps, ...props }) => {
 	return (
 		<Button
-			isLoading={formState.isSubmitting}
+			isLoading={
+				formState ? formState.isSubmitting : props.isLoading || false
+			}
 			bg="brand.700"
 			color="white"
 			as={motion.button}
@@ -27,6 +31,7 @@ const FormSubmitButton: React.FC<
 			_hover={{ bg: RGBA.fromHex("#cf4044").darken(10).toString() }}
 			{...buttonProps}
 			type="submit"
+			onClick={props.onClick ? props.onClick : () => {}}
 		>
 			{children}
 		</Button>

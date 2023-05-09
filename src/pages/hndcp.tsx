@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Spinner, Text, useColorModeValue } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { Container, Handicap } from "~/client/components";
 import useSWR from "swr";
@@ -18,8 +18,10 @@ type AsyncReturnType<T extends (...args: any) => Promise<any>> = T extends (
  * @return {React.FC<HandicapPage>}
  */
 const HandicapPage: React.FC<HandicapPageProps> = (props) => {
-	const { data } =
+	const { data, isLoading } =
 		useSWR<AsyncReturnType<typeof getHndcpReport>>("/api/v1/hndcp");
+
+	const fontColor = useColorModeValue("black", "whiteAlpha.700");
 
 	return (
 		<Container.Main>
@@ -33,6 +35,14 @@ const HandicapPage: React.FC<HandicapPageProps> = (props) => {
 								<Handicap.Player player={p} key={p.id} />
 							))}
 					</Handicap.Table>
+					{isLoading && (
+						<Flex flexDir={"column"} mx="auto" gap={2} my="4">
+							<Spinner mx="auto" size="lg" color="brand.700" />
+							<Text fontSize="sm" color={fontColor}>
+								Generating Report
+							</Text>
+						</Flex>
+					)}
 				</Handicap.Container>
 				<Handicap.Container>
 					<Handicap.Header>Flight B</Handicap.Header>
@@ -43,6 +53,14 @@ const HandicapPage: React.FC<HandicapPageProps> = (props) => {
 								<Handicap.Player player={p} key={p.id} />
 							))}
 					</Handicap.Table>
+					{isLoading && (
+						<Flex flexDir={"column"} mx="auto" gap={2} my="4">
+							<Spinner mx="auto" size="lg" color="brand.700" />
+							<Text fontSize="sm" color={fontColor}>
+								Generating Report
+							</Text>
+						</Flex>
+					)}
 				</Handicap.Container>
 			</Flex>
 		</Container.Main>
