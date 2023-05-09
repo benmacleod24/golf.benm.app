@@ -37,7 +37,7 @@ const HandicapPlayer: React.FC<HandicapPlayerProps> = (props) => {
 				</Td>
 				<Td></Td>
 				{props.player.scorecards.map((c) => (
-					<Td isNumeric color="gray.400">
+					<Td isNumeric color="gray.400" key={c.id}>
 						<Text fontSize={"sm"}>{c.score}</Text>
 						<Text
 							fontSize="sm"

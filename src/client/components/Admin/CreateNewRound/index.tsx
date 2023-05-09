@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Admin } from "..";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -6,7 +6,9 @@ import { createRoundCard } from "~/server/db/createRoundCard";
 import { Form } from "../../Form";
 import useSWR from "swr";
 import { Team_Member } from "@prisma/client";
-import { Flex, Grid } from "@chakra-ui/react";
+import { Flex, Grid, Icon, IconButton } from "@chakra-ui/react";
+import { FaTrashAlt, FaPlus } from "react-icons/fa";
+import { HiOutlinePlus } from "react-icons/hi";
 
 interface CreateNewRoundProps {}
 
@@ -17,82 +19,142 @@ type NewRoundFormData = z.infer<typeof createRoundCard.schema>;
  * @return {React.FC<CreateNewRound>}
  */
 const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
-	const { register, handleSubmit, formState, ...rest } =
-		useForm<NewRoundFormData>();
+	const [scores, setScores] = useState<NewRoundFormData[]>([]);
+	const [loading, setIsLoading] = useState<boolean>(false);
 
-	const { data } = useSWR<{ data: Team_Member[] }>("/api/v1/players");
+	const { data, isLoading } = useSWR<{ data: Team_Member[] }>(
+		"/api/v1/players"
+	);
 
-	const onSubmit = async (data: NewRoundFormData) => {
-		alert(JSON.stringify(data, null, 2));
+	const handleChange = (key: string, value: any, pos: number) => {
+		let newScores = [...scores];
+
+		if (key === "score") {
+			value = Number(value);
+		}
+
+		//@ts-ignore
+		newScores[pos][key] = value;
+
+		setScores(newScores);
 	};
 
-	// Filters out correct people for search input.
-	const sortSearchInput = useCallback(
-		(v: string): { text: string; value: any }[] => {
-			console.log(data);
-			if (!data || !data.data) return [];
-			return data.data
-				.filter((p) => {
-					const combinedName = p.firstName + " " + p.lastName;
-					if (combinedName.toUpperCase().includes(v.toUpperCase()))
-						return p;
-				})
-				.map((p) => {
-					return {
-						text: p.firstName + " " + p.lastName,
-						value: p.id,
-					};
-				});
-		},
-		[data]
-	);
+	const onSubmit = async () => {
+		setIsLoading(true);
+
+		const res = await fetch("/api/v1/scorecard", {
+			method: "POST",
+			body: JSON.stringify(scores),
+		}).then((r) => r.json());
+
+		console.log(res);
+
+		setIsLoading(false);
+	};
+
+	const groupByA_or_B = useMemo(() => {
+		if (!data) return [];
+		return data.data.reduce(
+			(prev, next) => {
+				if (next.A_or_B === "A") {
+					prev[0]?.options.push({
+						label: next.firstName + " " + next.lastName,
+						value: next.id,
+					});
+				}
+
+				if (next.A_or_B === "B") {
+					prev[1]?.options.push({
+						label: next.firstName + " " + next.lastName,
+						value: next.id,
+					});
+				}
+
+				return prev;
+			},
+			[
+				{ label: "A Players", options: [] as any },
+				{ label: "B Players", options: [] as any },
+			]
+		);
+	}, [data]);
 
 	return (
 		<Admin.Section title="New Round Score">
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<Flex flexDir={"column"} w="full">
-					<Grid
-						templateColumns={[null, null, "repeat(3, 1fr)"]}
-						w="full"
+			<Flex w="full" flexDir={"column"} gap={5}>
+				{scores.map((v, i) => (
+					<Flex
+						key={i}
+						align={"flex-end"}
 						gap={5}
+						flexDir={["column", "column", "row"]}
 					>
-						<Form.SearchInput
-							inputProps={{
-								formState,
-								name: "playerId",
-								register,
-								title: "What Player?",
+						<Grid
+							w="full"
+							templateColumns={[null, null, "repeat(3, 1fr)"]}
+							gap={5}
+						>
+							<Form.SearchInput
+								name="player"
+								title="Select a Player"
+								options={groupByA_or_B}
+								isLoading={isLoading}
+								onChange={(k, v) => handleChange(k, v, i)}
+								rules={{ required: "This is required." }}
+							/>
+							<Form.Input2
+								value={String(v.score)}
+								onChange={(k, v) => handleChange(k, v, i)}
+								name={"score"}
+								title="What was the Score?"
+							/>
+							<Form.Input2
+								value={String(v.date)}
+								onChange={(k, v) => handleChange(k, v, i)}
+								placeholder="MM/DD/YYYY"
+								name={"date"}
+								title="When did this happen?"
+							/>
+						</Grid>
+						<IconButton
+							aria-label="delete-score"
+							variant={["ghost"]}
+							// w={["full", "xs", "fit-content", "fit-content"]}
+							colorScheme="red"
+							onClick={() => {
+								setScores(scores.filter((v, _i) => _i != i));
 							}}
-							openOnFocus
-							sort={sortSearchInput}
-							onClick={(v) => rest.setValue("playerId", v)}
+							icon={<Icon as={FaTrashAlt} />}
 						/>
-						<Form.TextInput
-							formState={formState}
-							name="score"
-							register={register}
-							title="What was the score?"
-						/>
-						<Form.TextInput
-							formState={formState}
-							name="date"
-							register={register}
-							title="When did this happen?"
-							placeholder="DD/MM/YY"
-						/>
-					</Grid>
-					<Form.SubmitButton
-						formState={formState}
-						buttonProps={{
-							colorScheme: "whatsapp",
-							w: [null, null, null, "md"],
-							mt: "7",
-						}}
-					>
-						Submit Score
-					</Form.SubmitButton>
-				</Flex>
-			</form>
+					</Flex>
+				))}
+				<IconButton
+					aria-label="add-score"
+					variant={"outline"}
+					border="2px dashed"
+					py="5"
+					borderColor={"whiteAlpha.400"}
+					onClick={() => {
+						setScores([
+							...scores,
+							{
+								date: "",
+								playerId: undefined,
+								score: undefined,
+							},
+						]);
+					}}
+					icon={<Icon as={HiOutlinePlus} />}
+				/>
+				<Form.SubmitButton
+					onClick={() => onSubmit()}
+					buttonProps={{
+						w: ["full", "full", "xs"],
+					}}
+				>
+					Submit Scores
+				</Form.SubmitButton>
+			</Flex>
 		</Admin.Section>
 	);
 };

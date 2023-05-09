@@ -7,6 +7,8 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 	const { method } = req;
 
 	switch (method) {
+		case "POST":
+			return POST(req, res);
 		default:
 			throw new Error("Method does not exist at this endpoint.");
 	}
@@ -18,7 +20,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
  * @description Create a batch of new scorecards.
  */
 const POST = async (req: NextApiRequest, res: NextApiResponse) => {
-	const scorecards = JSON.parse(req.body) as Prisma.ScorecardCreateInput[];
+	let scorecards = JSON.parse(req.body) as Prisma.ScorecardCreateInput[];
 
 	if (!scorecards) {
 		return res.status(400).json(
@@ -29,11 +31,27 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 		);
 	}
 
+	scorecards[0]!.date = new Date(scorecards[0]!.date);
+
+	console.log(scorecards);
+
 	const scorecardResults = await createBatchScorecards(scorecards);
 
 	if (!scorecardResults) {
-		return res.status(500).json();
+		return res.status(500).json(
+			response({
+				code: "500",
+				message: "Error occured while creating scores.",
+			})
+		);
 	}
+
+	return res.status(200).json(
+		response({
+			data: scorecardResults,
+			code: "200",
+		})
+	);
 };
 
 export default handler;
