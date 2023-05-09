@@ -1,4 +1,4 @@
-import { Flex, Spinner, Text } from "@chakra-ui/react";
+import { Flex, Spinner, Text, useColorModeValue } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { Container, Handicap } from "~/client/components";
 import useSWR from "swr";
@@ -21,6 +21,8 @@ const HandicapPage: React.FC<HandicapPageProps> = (props) => {
 	const { data, isLoading } =
 		useSWR<AsyncReturnType<typeof getHndcpReport>>("/api/v1/hndcp");
 
+	const fontColor = useColorModeValue("black", "whiteAlpha.700");
+
 	return (
 		<Container.Main>
 			<Flex gap={14} flexDir={"column"} pb="10">
@@ -36,7 +38,7 @@ const HandicapPage: React.FC<HandicapPageProps> = (props) => {
 					{isLoading && (
 						<Flex flexDir={"column"} mx="auto" gap={2} my="4">
 							<Spinner mx="auto" size="lg" color="brand.700" />
-							<Text fontSize="sm" color="whiteAlpha.700">
+							<Text fontSize="sm" color={fontColor}>
 								Generating Report
 							</Text>
 						</Flex>
@@ -54,7 +56,7 @@ const HandicapPage: React.FC<HandicapPageProps> = (props) => {
 					{isLoading && (
 						<Flex flexDir={"column"} mx="auto" gap={2} my="4">
 							<Spinner mx="auto" size="lg" color="brand.700" />
-							<Text fontSize="sm" color="whiteAlpha.700">
+							<Text fontSize="sm" color={fontColor}>
 								Generating Report
 							</Text>
 						</Flex>
