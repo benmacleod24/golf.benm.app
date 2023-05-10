@@ -11,6 +11,12 @@ datasource db {
   relationMode = "prisma"
 }
 
+model Announcements {
+  id Int @id @default(autoincrement())
+  message String
+  createdAt DateTime @default(now())
+}
+
 model Golf_Course {
   courseId   Int    @id @default(autoincrement())
   courseName String
