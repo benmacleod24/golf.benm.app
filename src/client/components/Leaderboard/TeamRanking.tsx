@@ -32,6 +32,7 @@ interface TeamRankingProps {
 const TeamRanking: React.FC<TeamRankingProps> = (props) => {
 	const borderColor = useColorModeValue("gray.300", "whiteAlpha.300");
 	const bg = useColorModeValue("gray.50", "gray.900");
+	const color = useColorModeValue("gray.600", "gray.300");
 
 	const getFontColor = (): TextProps => {
 		switch (props.pos) {
@@ -123,7 +124,7 @@ const TeamRanking: React.FC<TeamRankingProps> = (props) => {
 										</StatNumber>
 									</Stat>
 									<Stat>
-										<StatLabel color="whiteAlpha.600">
+										<StatLabel color={color}>
 											Total Current Points
 										</StatLabel>
 										<StatNumber>
@@ -133,7 +134,7 @@ const TeamRanking: React.FC<TeamRankingProps> = (props) => {
 								</HStack>
 								<HStack>
 									<Stat>
-										<StatLabel color="whiteAlpha.600">
+										<StatLabel color={color}>
 											Prior Week Points
 										</StatLabel>
 										<StatNumber>
