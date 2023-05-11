@@ -5,7 +5,7 @@ import type { NextRequest } from "next/server";
 import { getServerAuthSession } from "./server/auth";
 import { getToken } from "next-auth/jwt";
 
-const protectedPages: string[] = ["/", "/players", "/teams", "/admin"];
+const protectedPages: string[] = ["/", "/hndcp", "/admin"];
 
 export const middleware: NextMiddleware = async (req: NextRequest) => {
 	const endpoint = req.nextUrl.pathname;
