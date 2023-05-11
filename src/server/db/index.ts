@@ -1,3 +1,3 @@
 export * from "./prisma";
-export * from "./createPlayer";
-export * from "./createTeam";
+export * from "./player/createPlayer";
+export * from "./team/createTeam";

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { stringToNumber } from "../helpers";
-import { prisma } from "./prisma";
+import { stringToNumber } from "../../helpers";
+import { prisma } from "../prisma";
 
 export const createRoundCard = async (data: z.infer<typeof schema>) => {
 	const { date, playerId, score } = data;

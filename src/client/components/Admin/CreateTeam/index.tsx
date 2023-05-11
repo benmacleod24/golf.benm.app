@@ -37,7 +37,7 @@ const CreateTeam: React.FC<CreateTeamProps> = (props) => {
 
 	return (
 		<Admin.Section title="Create New Team">
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
 				<Form.TextInput
 					formState={formState}
 					name="name"

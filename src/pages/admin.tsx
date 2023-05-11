@@ -14,7 +14,7 @@ const NatePage: React.FC<NatePageProps> = (props) => {
 		<Container.Main title="Admin Portal | RGL">
 			<Admin.NewRound />
 			<Grid
-				mt="8"
+				my="8"
 				templateColumns={[
 					"repeat(1, 1fr)",
 					null,
@@ -25,6 +25,19 @@ const NatePage: React.FC<NatePageProps> = (props) => {
 			>
 				<Admin.CreatePlayer />
 				<Admin.CreateTeam />
+			</Grid>
+			<Grid
+				my="8"
+				templateColumns={[
+					"repeat(1, 1fr)",
+					null,
+					null,
+					"repeat(2, 1fr)",
+				]}
+				gap={[5, null, null, 14]}
+			>
+				<Admin.PostAnnouncement />
+				<Admin.ResetPin />
 			</Grid>
 		</Container.Main>
 	);
