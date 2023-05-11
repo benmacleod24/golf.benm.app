@@ -1,7 +1,8 @@
 import { Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
-import { createBatchScorecards } from "~/server/db/createBatchScorecards";
+import { createBatchScorecards } from "~/server/db/scorecard/createBatchScorecards";
 import { response } from "~/server/helpers";
+import { isAdmin } from "~/server/helpers/isAdmin";
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
 	const { method } = req;
@@ -27,6 +28,16 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 			response({
 				code: "400",
 				message: "Could not find any scorecards.",
+			})
+		);
+	}
+
+	// No access to this endpoint.
+	if (!(await isAdmin({ req, res }))) {
+		return res.status(401).json(
+			response({
+				code: "401",
+				message: "No Access",
 			})
 		);
 	}
