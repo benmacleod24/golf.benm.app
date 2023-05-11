@@ -1,8 +1,11 @@
 import { prisma } from "../prisma";
 
-export const getTeams = async () => {
+export const getTeams = async (data?: { includeMembers?: boolean }) => {
 	try {
-		const teams = await prisma.team.findMany();
+		let include = {};
+		if (data && data.includeMembers)
+			include = { ...include, teamMember: true };
+		const teams = await prisma.team.findMany({ include });
 		return teams;
 	} catch (e) {
 		throw e;
