@@ -12,6 +12,7 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import ColorMode from "~/client/components/ColorMode";
@@ -57,6 +58,9 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
 			justify={"center"}
 			align={"center"}
 		>
+			<Head>
+				<title>Signin | RGL</title>
+			</Head>
 			<Text fontWeight={"bold"} fontSize="lg" mx="auto">
 				Riverview Golf League Portal
 			</Text>

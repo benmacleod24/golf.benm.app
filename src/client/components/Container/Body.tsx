@@ -19,9 +19,6 @@ const ContainerBody: React.FC<React.PropsWithChildren<ContainerBodyProps>> = (
 			px={["5", "5", "5", null, null]}
 			{...props}
 		>
-			<Head>
-				<title>{props.title}</title>
-			</Head>
 			{props.children}
 		</Container>
 	);

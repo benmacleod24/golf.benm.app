@@ -4,6 +4,7 @@ import { Container, Handicap } from "~/client/components";
 import useSWR from "swr";
 import { getHndcpReport } from "./api/v1/hndcp";
 import { AsyncParseReturnType } from "zod";
+import Head from "next/head";
 
 interface HandicapPageProps {}
 
@@ -25,6 +26,9 @@ const HandicapPage: React.FC<HandicapPageProps> = (props) => {
 
 	return (
 		<Container.Main>
+			<Head>
+				<title>Handicap Report | RGL</title>
+			</Head>
 			<Flex gap={14} flexDir={"column"} pb="10">
 				<Handicap.Container>
 					<Handicap.Header>Flight A</Handicap.Header>
