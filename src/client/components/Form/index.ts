@@ -4,6 +4,7 @@ import FormInput from "./Input";
 import InputNonForm from "./InputNonForm";
 import SearchInput from "./SearchInput";
 import FormSelect from "./Select";
+import FormTextarea from "./Textarea";
 
 export const Form = {
 	TextInput: FormInput,
@@ -12,4 +13,5 @@ export const Form = {
 	SearchInput: SearchInput,
 	FormikWrapper: Formik,
 	Input2: InputNonForm,
+	Textarea: FormTextarea,
 };

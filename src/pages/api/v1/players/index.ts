@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createPlayer } from "~/server/db";
-import { getPlayers } from "~/server/db/getPlayers";
+import { getPlayers } from "~/server/db/player/getPlayers";
 import { response } from "~/server/helpers";
 import { isAdmin } from "~/server/helpers/isAdmin";
 

@@ -5,6 +5,7 @@ interface AdminSectionProps {
 	title: string;
 	containerProps?: FlexProps;
 	wrapperProps?: FlexProps;
+	theme?: string;
 }
 
 /**
@@ -17,7 +18,11 @@ const AdminSection: React.FC<React.PropsWithChildren<AdminSectionProps>> = (
 	return (
 		<Flex flexDir={"column"} {...props.wrapperProps}>
 			<Flex align={"center"} mb="5">
-				<Text minW="fit-content" fontWeight={"semibold"}>
+				<Text
+					minW="fit-content"
+					fontWeight={"semibold"}
+					color={props.theme || "white"}
+				>
 					{props.title}
 				</Text>
 				<Divider ml="5" mt="0.5" />

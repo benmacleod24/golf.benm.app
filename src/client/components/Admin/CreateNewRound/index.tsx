@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Admin } from "..";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { createRoundCard } from "~/server/db/createRoundCard";
+import { createRoundCard } from "~/server/db/scorecard/createRoundCard";
 import { Form } from "../../Form";
 import useSWR from "swr";
 import { Team_Member } from "@prisma/client";

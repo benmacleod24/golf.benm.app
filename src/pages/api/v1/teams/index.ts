@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createTeam, createTeamSchema } from "~/server/db";
-import { getTeams } from "~/server/db/getTeams";
+import { getTeams } from "~/server/db/team/getTeams";
 import { response } from "~/server/helpers";
 import { isAdmin } from "~/server/helpers/isAdmin";
 

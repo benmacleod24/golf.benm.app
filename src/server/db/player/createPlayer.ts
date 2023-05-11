@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { prisma } from ".";
-import { stringToNumber } from "../helpers";
+import { prisma } from "..";
+import { stringToNumber } from "../../helpers";
 import { A_or_B } from "@prisma/client";
 
 export const createPlayer = async (data: z.infer<typeof schema>) => {
