@@ -33,7 +33,8 @@ export const generateLeaderboard = async () => {
 				(cnt, member) => {
 					if (!member.scorecards[0]) return cnt;
 					cnt[member.A_or_B] = cnt[member.A_or_B] =
-						member.scorecards[0].score;
+						member.scorecards[0].numOfHolesWon +
+						member.scorecards[0].numOfOverAll;
 					return cnt;
 				},
 				{ A: 0, B: 0 }
@@ -43,7 +44,10 @@ export const generateLeaderboard = async () => {
 			const latestWeekTotal = scorecardsForTeam.reduce(
 				(total, member) => {
 					if (!member.scorecards[0]) return total;
-					return (total = total + member.scorecards[0].score);
+					return (total =
+						total +
+						member.scorecards[0].numOfHolesWon +
+						member.scorecards[0].numOfOverAll);
 				},
 				0
 			);
@@ -52,7 +56,10 @@ export const generateLeaderboard = async () => {
 			const priorWeekTotal = scorecardsForTeam.reduce(
 				(total, member) => {
 					if (!member.scorecards[1]) return total;
-					return (total = total + member.scorecards[1].score);
+					return (total =
+						total +
+						member.scorecards[1].numOfHolesWon +
+						member.scorecards[1]?.numOfOverAll);
 				},
 				0
 			);

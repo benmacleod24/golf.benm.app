@@ -104,11 +104,11 @@ const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
 						key={i}
 						align={"flex-end"}
 						gap={5}
-						flexDir={["column", "column", "row"]}
+						flexDir={["column", "column", "column"]}
 					>
 						<Grid
 							w="full"
-							templateColumns={[null, null, "repeat(3, 1fr)"]}
+							templateColumns={[null, null, "repeat(2, 1fr)"]}
 							gap={5}
 						>
 							<Form.SearchInput
@@ -119,6 +119,20 @@ const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
 								onChange={(k, v) => handleChange(k, v, i)}
 								rules={{ required: "This is required." }}
 							/>
+
+							<Form.Input2
+								value={String(v.date)}
+								onChange={(k, v) => handleChange(k, v, i)}
+								placeholder="MM/DD/YYYY"
+								name={"date"}
+								title="When did this happen?"
+							/>
+						</Grid>
+						<Grid
+							templateColumns={[null, null, "repeat(3,1fr)"]}
+							w="full"
+							gap={5}
+						>
 							<Form.Input2
 								value={String(v.score)}
 								onChange={(k, v) => handleChange(k, v, i)}
@@ -126,11 +140,16 @@ const CreateNewRound: React.FC<CreateNewRoundProps> = (props) => {
 								title="What was the Score?"
 							/>
 							<Form.Input2
-								value={String(v.date)}
+								value={String(v.score)}
 								onChange={(k, v) => handleChange(k, v, i)}
-								placeholder="MM/DD/YYYY"
-								name={"date"}
-								title="When did this happen?"
+								name={"numOfHolesWon"}
+								title="How Many Holes did they win?"
+							/>
+							<Form.Input2
+								value={String(v.score)}
+								onChange={(k, v) => handleChange(k, v, i)}
+								name={"numOfOverAll"}
+								title="How Many Overall Points?"
 							/>
 						</Grid>
 						<IconButton
