@@ -1,4 +1,5 @@
 import { Box, Grid } from "@chakra-ui/react";
+import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import { Container } from "~/client/components";
 import { Admin } from "~/client/components/Admin";
@@ -12,6 +13,9 @@ interface NatePageProps {}
 const NatePage: React.FC<NatePageProps> = (props) => {
 	return (
 		<Container.Main title="Admin Portal | RGL">
+			<Head>
+				<title>Nate's Section| RGL</title>
+			</Head>
 			<Admin.NewRound />
 			<Grid
 				my="8"
