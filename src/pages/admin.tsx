@@ -14,7 +14,7 @@ const NatePage: React.FC<NatePageProps> = (props) => {
 	return (
 		<Container.Main title="Admin Portal | RGL">
 			<Head>
-				<title>Nate's Section| RGL</title>
+				<title>Nate&apos;s Section| RGL</title>
 			</Head>
 			<Admin.NewRound />
 			<Grid
