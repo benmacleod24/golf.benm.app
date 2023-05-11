@@ -20,44 +20,36 @@ const Announcements: React.FC<AnnouncementsProps> = (props) => {
 	>("/api/v1/announcements");
 
 	return (
-		<Flex flexDir={"column"} maxW="xl">
-			<Admin.Section title="Announcements" theme="brand.700">
-				<Flex
-					w="full"
-					flexDir={"column"}
-					overflow={"auto"}
-					h="xs"
-					maxH="xs"
-					__css={{
-						"::-webkit-scrollbar": {
-							display: "none",
-						},
-					}}
-					justify={
-						data && data.data && data.data?.length >= 1
-							? "flex-start"
-							: "center"
-					}
-					align={
-						data && data.data && data.data?.length >= 1
-							? "flex-start"
-							: "center"
-					}
-				>
-					{isLoading && (
-						<Spinner color="brand.700" thickness="3px" size="lg" />
-					)}
-					{!data ||
-						!data.data ||
-						(data.data.length <= 0 && <NothingHere />)}
-					{data &&
-						data.data &&
-						data.data.map((a) => (
-							<AnnouncementComp data={a} key={a.id} />
-						))}
-				</Flex>
-			</Admin.Section>
-		</Flex>
+		<Admin.Section title="Announcements" theme="brand.700">
+			<Flex
+				w="full"
+				flexDir={"column"}
+				overflow={"auto"}
+				h="full"
+				maxH="30.3em"
+				__css={{
+					"::-webkit-scrollbar": {
+						display: "none",
+					},
+				}}
+				justify={"center"}
+				align={"center"}
+			>
+				{isLoading && (
+					<Flex w="full" justify={"center"} align="center">
+						<Spinner color="brand.700" size="lg" mx="auto" />
+					</Flex>
+				)}
+				{!data ||
+					!data.data ||
+					(data.data.length <= 0 && <NothingHere />)}
+				{data &&
+					data.data &&
+					data.data.map((a) => (
+						<AnnouncementComp data={a} key={a.id} />
+					))}
+			</Flex>
+		</Admin.Section>
 	);
 };
 

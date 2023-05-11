@@ -12,7 +12,10 @@ const Home: NextPage = () => {
 				<title>Riverview GL</title>
 			</Head>
 			<Container.Main>
-				<Grid templateColumns={[null, null, null, "repeat(2, 1fr)"]}>
+				<Grid
+					templateColumns={[null, null, null, "repeat(2, 1fr)"]}
+					gap={8}
+				>
 					<Announcements />
 					<Leaderboard />
 				</Grid>

@@ -8,11 +8,8 @@ import Head from "next/head";
 
 interface HandicapPageProps {}
 
-type AsyncReturnType<T extends (...args: any) => Promise<any>> = T extends (
-	...args: any
-) => Promise<infer R>
-	? R
-	: any;
+export type AsyncReturnType<T extends (...args: any) => Promise<any>> =
+	T extends (...args: any) => Promise<infer R> ? R : any;
 
 /**
  * @description Handicap report page.
