@@ -11,11 +11,6 @@ export const generateLeaderboard = async () => {
 		const leaderboard = teams.map(async (team) => {
 			const currentYear = new Date(new Date().getFullYear(), 0, 1);
 
-			const bPlayer = 0;
-			const totalCurrWeek = 0;
-			const totalPriorWeek = 0;
-			const grandTotal = 0;
-
 			const scorecardsForTeam = await prisma.team_Member.findMany({
 				where: {
 					teamId: team.id,
@@ -44,6 +39,7 @@ export const generateLeaderboard = async () => {
 				{ A: 0, B: 0 }
 			);
 
+			// Count the total number of points for latest scorecard.
 			const latestWeekTotal = scorecardsForTeam.reduce(
 				(total, member) => {
 					if (!member.scorecards[0]) return total;
@@ -52,6 +48,7 @@ export const generateLeaderboard = async () => {
 				0
 			);
 
+			// Count the total number of points the prior week.
 			const priorWeekTotal = scorecardsForTeam.reduce(
 				(total, member) => {
 					if (!member.scorecards[1]) return total;
@@ -61,6 +58,10 @@ export const generateLeaderboard = async () => {
 			);
 
 			return {
+				team: {
+					id: team.id,
+					name: team.name,
+				},
 				A_B_scores,
 				latestWeekTotal,
 				priorWeekTotal,
@@ -68,8 +69,34 @@ export const generateLeaderboard = async () => {
 			};
 		});
 
-		return Promise.all(leaderboard);
+		return sortLeaderboard(await Promise.all(leaderboard));
 	} catch (e) {
 		throw e;
 	}
+};
+
+const sortLeaderboard = (
+	leaderboard: {
+		team: {
+			id: number;
+			name: string;
+		};
+		A_B_scores: {
+			A: number;
+			B: number;
+		};
+		latestWeekTotal: number;
+		priorWeekTotal: number;
+		grandTotal: number;
+	}[]
+) => {
+	const scoresWithZeros = leaderboard
+		.filter((l) => l.grandTotal <= 0)
+		.sort((a, b) => a.team.name.localeCompare(b.team.name));
+
+	const scoresWithNonZero = leaderboard
+		.filter((l) => l.grandTotal > 0)
+		.sort((a, b) => a.grandTotal - b.grandTotal);
+
+	return [...scoresWithNonZero, ...scoresWithZeros];
 };

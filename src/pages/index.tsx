@@ -1,7 +1,9 @@
+import { Grid } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import { Container } from "~/client/components";
 import Announcements from "~/client/components/Announcements";
+import Leaderboard from "~/client/components/Leaderboard";
 
 const Home: NextPage = () => {
 	return (
@@ -10,7 +12,10 @@ const Home: NextPage = () => {
 				<title>Riverview GL</title>
 			</Head>
 			<Container.Main>
-				<Announcements />
+				<Grid templateColumns={[null, null, null, "repeat(2, 1fr)"]}>
+					<Announcements />
+					<Leaderboard />
+				</Grid>
 			</Container.Main>
 		</>
 	);

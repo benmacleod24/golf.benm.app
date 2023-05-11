@@ -74,7 +74,7 @@ const SignInPage: React.FC<SignInPageProps> = (props) => {
 			</Text>
 
 			<HStack my="6">
-				<PinInput type="alphanumeric" mask onChange={onPinChange}>
+				<PinInput type="number" mask onChange={onPinChange}>
 					<PinInputField textTransform={"uppercase"} />
 					<PinInputField textTransform={"uppercase"} />
 					<PinInputField textTransform={"uppercase"} />
