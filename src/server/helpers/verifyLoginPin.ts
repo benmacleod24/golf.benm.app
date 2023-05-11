@@ -3,7 +3,7 @@ import { prisma } from "~/server/db";
 export const verifyLoginPin = async (pin: string) => {
 	if (!pin) return false;
 
-	const validPin = await prisma.loginPins.findUnique({
+	const validPin = await prisma.login_Pin.findUnique({
 		where: { pin },
 	});
 

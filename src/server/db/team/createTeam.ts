@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { prisma } from ".";
+import { prisma } from "..";
 
 export const createTeam = async (teamName: string) => {
 	try {

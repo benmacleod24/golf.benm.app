@@ -1,11 +1,11 @@
-export const response = ({
+export const response = <T = any>({
 	code,
 	message,
 	data,
 }: {
 	code?: string;
 	message?: string;
-	data?: any;
+	data?: T;
 }) => ({
 	code,
 	message,

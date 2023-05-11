@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 import { FormState, UseFormRegister } from "react-hook-form";
 import { CreatePlayerFormData } from "../Admin/CreatePlayer";
 
-interface FormInputProps {
+export interface FormInputProps {
 	name: any;
 	register: UseFormRegister<any>;
 	formState: FormState<any>;

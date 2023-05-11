@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Container, ContainerProps } from "@chakra-ui/react";
+import Head from "next/head";
 
-interface ContainerBodyProps extends ContainerProps {}
+interface ContainerBodyProps extends ContainerProps {
+	title?: string;
+}
 
 /**
  * @description Container body component.

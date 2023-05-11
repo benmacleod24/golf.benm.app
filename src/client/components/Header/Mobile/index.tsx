@@ -54,7 +54,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 	if (isLargerThan768) return null;
 
 	const getColor = (pathname: string): BackgroundProps["bg"] => {
-		if (router.pathname === pathname) return "whatsapp.600";
+		if (router.pathname === pathname) return "brand.700";
 		return "transparent";
 	};
 
@@ -123,22 +123,22 @@ const MobileHeader: React.FC<MobileHeaderProps> = (props) => {
 											<Text>Home</Text>
 										</Flex>
 									</Link>
-									<Link href="/teams">
+									<Link href="/hndcp">
 										<Flex
-											bg={getColor("/teams")}
+											bg={getColor("/hndcp")}
 											p="3"
 											py="2"
 											mx="4"
 											rounded="md"
 											align={"center"}
-											color={getFontColor("/teams")}
+											color={getFontColor("/hndcp")}
 										>
 											<Icon
 												as={HiRectangleGroup}
 												fontSize="2xl"
 												mr="5"
 											/>
-											<Text>Teams</Text>
+											<Text>Handicap Report</Text>
 										</Flex>
 									</Link>
 									<Link href="/players">
