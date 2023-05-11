@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { generateLeaderboard } from "~/server/db/generateLeaderboard";
+import { response } from "~/server/helpers";
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
 	const { method } = req;
@@ -20,7 +21,13 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 const GET = async (req: NextApiRequest, res: NextApiResponse) => {
 	const leaderboard = await generateLeaderboard();
 
-	return res.status(200).json(leaderboard);
+	return res.status(200).json(
+		response({
+			code: "200",
+			data: leaderboard,
+			message: "Successfully generated the leaderboard.",
+		})
+	);
 };
 
 export default handler;
