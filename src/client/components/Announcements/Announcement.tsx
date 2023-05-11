@@ -34,7 +34,7 @@ const Announcement: React.FC<AnnouncementProps> = (props) => {
 			>
 				{props.data.title}
 			</Text>
-			<Text>{props.data.message}</Text>
+			<Text whiteSpace={"pre-wrap"}>{props.data.message}</Text>
 			<Flex
 				w="full"
 				justify={"flex-end"}
