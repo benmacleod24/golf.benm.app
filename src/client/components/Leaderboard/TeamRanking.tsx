@@ -31,6 +31,8 @@ interface TeamRankingProps {
  */
 const TeamRanking: React.FC<TeamRankingProps> = (props) => {
 	const borderColor = useColorModeValue("gray.300", "whiteAlpha.300");
+	const bg = useColorModeValue("gray.50", "gray.900");
+	const color = useColorModeValue("gray.600", "gray.300");
 
 	const getFontColor = (): TextProps => {
 		switch (props.pos) {
@@ -40,8 +42,11 @@ const TeamRanking: React.FC<TeamRankingProps> = (props) => {
 				};
 			case 2:
 				return {
-					bg: "linear-gradient(to right, #4D4D4D 0%, #D8D8D8 32%, #FFFFFF 52%, #D8D8D8 72%, #4D4D4D 100%);",
-					backgroundClip: "text",
+					color: "brand.700",
+				};
+			case 3:
+				return {
+					color: "blue.300",
 				};
 			default:
 				return {
@@ -66,10 +71,11 @@ const TeamRanking: React.FC<TeamRankingProps> = (props) => {
 							<AccordionButton w="full" p="0" pr="4">
 								<Flex w="full" align="center">
 									<Flex
-										bg="gray.900"
+										bg={bg}
 										w="12"
 										mr="7"
 										p="2"
+										h="10"
 										justify={"center"}
 										align="center"
 										roundedBottomRight={
@@ -118,7 +124,7 @@ const TeamRanking: React.FC<TeamRankingProps> = (props) => {
 										</StatNumber>
 									</Stat>
 									<Stat>
-										<StatLabel color="whiteAlpha.600">
+										<StatLabel color={color}>
 											Total Current Points
 										</StatLabel>
 										<StatNumber>
@@ -128,7 +134,7 @@ const TeamRanking: React.FC<TeamRankingProps> = (props) => {
 								</HStack>
 								<HStack>
 									<Stat>
-										<StatLabel color="whiteAlpha.600">
+										<StatLabel color={color}>
 											Prior Week Points
 										</StatLabel>
 										<StatNumber>

@@ -19,7 +19,7 @@ const ContainerMain: React.FC<React.PropsWithChildren<ContainerMainProps>> = (
 	return (
 		<Flex w="full" flexDir="column">
 			<Header />
-			<Container.Body title={props.title}>
+			<Container.Body title={props.title} mb="10">
 				{props.children}
 			</Container.Body>
 		</Flex>

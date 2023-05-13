@@ -13,6 +13,8 @@ export const createRoundCard = async (data: z.infer<typeof schema>) => {
 				date,
 				playerId,
 				score,
+				numOfHolesWon: 0,
+				numOfOverAll: 0,
 			},
 		});
 

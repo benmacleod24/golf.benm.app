@@ -8,6 +8,8 @@ export const createBatchScorecards = async (data: any) => {
 		const results = await prisma.$transaction([
 			...data.map((c: any) => {
 				c.score = Number(c.score);
+				c.numOfHolesWon = Number(c.numOfHolesWon);
+				c.numOfOverAll = Number(c.numOfOverAll);
 
 				if (!dayjs(c.date).isValid()) {
 					return undefined;
@@ -20,6 +22,8 @@ export const createBatchScorecards = async (data: any) => {
 						score: c.score,
 						date: c.date,
 						playerId: c.player,
+						numOfHolesWon: c.numOfHolesWon,
+						numOfOverAll: c.numOfOverAll,
 					},
 				});
 			}),

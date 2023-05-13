@@ -24,7 +24,7 @@ export const generateHndcpReport = async (A_or_B: A_or_B) => {
 					0
 				);
 
-				teamMember.handicap = Math.ceil(
+				teamMember.handicap = Math.round(
 					((teamMember.totalScore - 180) / 5) * 0.8
 				);
 

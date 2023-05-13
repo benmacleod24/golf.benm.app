@@ -3,6 +3,7 @@ import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "~/styles";
+import { Analytics } from "@vercel/analytics/react";
 import { SWRConfig } from "swr";
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -19,6 +20,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 			>
 				<ChakraProvider resetCSS theme={theme}>
 					<Component {...pageProps} />
+					<Analytics />
 				</ChakraProvider>
 			</SWRConfig>
 		</SessionProvider>
