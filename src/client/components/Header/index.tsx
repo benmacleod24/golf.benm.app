@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = (props) => {
 			as="nav"
 			borderBottom="1px solid"
 			borderColor={borderColor}
-			mb="10"
+			mb="5"
 		>
 			<MobileHeader />
 			<DesktopHeader />

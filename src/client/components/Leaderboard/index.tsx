@@ -21,7 +21,7 @@ const Leaderboard: React.FC<LeaderboardProps> = (props) => {
 	>("/api/v1/leaderboard");
 
 	return (
-		<Admin.Section title="Leaderboard" theme="brand.700">
+		<Flex>
 			<Flex
 				w="full"
 				justify={"center"}
@@ -40,7 +40,7 @@ const Leaderboard: React.FC<LeaderboardProps> = (props) => {
 						/>
 					))}
 			</Flex>
-		</Admin.Section>
+		</Flex>
 	);
 };
 

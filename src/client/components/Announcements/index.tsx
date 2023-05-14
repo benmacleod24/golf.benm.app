@@ -20,7 +20,7 @@ const Announcements: React.FC<AnnouncementsProps> = (props) => {
 	>("/api/v1/announcements");
 
 	return (
-		<Admin.Section title="Announcements" theme="brand.700">
+		<Flex>
 			<Flex
 				w="full"
 				flexDir={"column"}
@@ -49,7 +49,7 @@ const Announcements: React.FC<AnnouncementsProps> = (props) => {
 						<AnnouncementComp data={a} key={a.id} />
 					))}
 			</Flex>
-		</Admin.Section>
+		</Flex>
 	);
 };
 

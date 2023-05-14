@@ -1,17 +1,78 @@
+import { filter } from "@chakra-ui/react";
 import { Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
+import { z } from "zod";
+import { prisma } from "~/server/db";
 import { createBatchScorecards } from "~/server/db/scorecard/createBatchScorecards";
-import { response } from "~/server/helpers";
+import { response, stringToNumber } from "~/server/helpers";
 import { isAdmin } from "~/server/helpers/isAdmin";
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
 	const { method } = req;
 
 	switch (method) {
+		case "GET":
+			return GET(req, res);
 		case "POST":
 			return POST(req, res);
 		default:
 			throw new Error("Method does not exist at this endpoint.");
+	}
+};
+
+const getFilterQuery = z.object({
+	member: z.ostring().transform(stringToNumber),
+	score: z.ostring().transform(stringToNumber),
+	date: z.ostring(),
+});
+
+/**
+ * @method GET
+ * @url /api/v1/scorecard
+ * @description Get all scorecards filter.
+ */
+const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+	const filters = getFilterQuery.parse(req.query);
+
+	try {
+		let where = {};
+
+		if (filters.member) {
+			where = {
+				...where,
+				playerId: filters.member,
+			};
+		}
+
+		if (filters.score) {
+			where = {
+				...where,
+				score: filters.score,
+			};
+		}
+
+		if (filters.date) {
+			where = {
+				...where,
+				date: new Date(filters.date || "").toISOString(),
+			};
+		}
+
+		console.log(where);
+
+		const scores = await prisma.scorecard.findMany({
+			where,
+		});
+
+		return res.status(200).json(
+			response({
+				code: "200",
+				message: "Collected scores",
+				data: scores,
+			})
+		);
+	} catch (e) {
+		throw e;
 	}
 };
 

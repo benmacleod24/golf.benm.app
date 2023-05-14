@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Text } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Grid, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
@@ -12,14 +12,22 @@ interface NatePageProps {}
  * @return {React.FC<NatePage>}
  */
 const NatePage: React.FC<NatePageProps> = (props) => {
-	const { query } = useRouter();
+	const { query, push } = useRouter();
 	const tab = query.tab as string;
+
+	useEffect(() => {
+		if (!tab) push("/admin?tab=scores");
+	}, [query, tab]);
+
 	return (
 		<Container.Main title="Admin Portal | RGL">
-			<Flex w="full">
-				<Admin.Menu />
-				<Flex w="full" maxW="75%" bg="red">
-					{tab}
+			<Flex flexDir={"column"} h="full">
+				<Flex w="full">
+					<Admin.Menu />
+
+					<Flex w="full" maxW="75%">
+						{tab === "scores" && <Admin.Scores />}
+					</Flex>
 				</Flex>
 			</Flex>
 		</Container.Main>

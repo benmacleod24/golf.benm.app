@@ -1,47 +1,45 @@
 import {
 	FormControl,
-	FormErrorMessage,
 	FormLabel,
 	Input,
+	InputProps,
+	useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
-import { FormState, UseFormRegister } from "react-hook-form";
-import { CreatePlayerFormData } from "../Admin/CreatePlayer";
+import { CustomFormProps } from ".";
 
-export interface FormInputProps {
-	name: any;
-	register: UseFormRegister<any>;
-	formState: FormState<any>;
-	placeholder?: string;
+interface FormInputProps {
 	title?: string;
+	name: string;
+	formProps: CustomFormProps;
+	inputProps?: InputProps;
 }
 
 /**
- * @description Text Input for the form.
+ * @description Form Input
  * @return {React.FC<FormInput>}
  */
-const FormInput: React.FC<FormInputProps> = ({
-	formState,
-	name,
-	...props
-}) => {
-	const { errors } = formState;
-
-	const errorMessage = errors[name]?.message || "Unknown Error";
+const FormInput: React.FC<FormInputProps> = (props) => {
+	const labelColor = useColorModeValue("blackAlpha.700", "whiteAlpha.700");
 
 	return (
-		<FormControl isInvalid={Boolean(errors[name])}>
-			<FormLabel htmlFor={name}>
-				{props.title || props.placeholder || "Form Input"}
+		<FormControl>
+			<FormLabel pb="0" mb="0.5" color={labelColor}>
+				{props.title || props.name}
 			</FormLabel>
 			<Input
-				id={name}
-				placeholder={props.placeholder}
-				{...props.register(name, {
-					required: "This is required",
-				})}
+				w="full"
+				_focusVisible={{ outline: "none" }}
+				variant={"filled"}
+				border={"1px solid"}
+				borderColor={"whiteAlpha.200"}
+				name={props.name}
+				value={props.formProps.values[props.name]}
+				onChange={(e) =>
+					props.formProps.setValue(props.name, e.target.value)
+				}
+				{...props.inputProps}
 			/>
-			<FormErrorMessage>{errorMessage.toString()}</FormErrorMessage>
 		</FormControl>
 	);
 };

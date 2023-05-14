@@ -1,17 +1,20 @@
-import FormSubmitButton from "./Button";
-import Formik from "./Formik";
 import FormInput from "./Input";
-import InputNonForm from "./InputNonForm";
-import SearchInput from "./SearchInput";
-import FormSelect from "./Select";
-import FormTextarea from "./Textarea";
+import SearchSelect from "./SearchSelect";
+import FormSubmit from "./Submit";
+import FormWrapper from "./Wrapper";
 
 export const Form = {
-	TextInput: FormInput,
-	Select: FormSelect,
-	SubmitButton: FormSubmitButton,
-	SearchInput: SearchInput,
-	FormikWrapper: Formik,
-	Input2: InputNonForm,
-	Textarea: FormTextarea,
+	Wrapper: FormWrapper,
+	Input: FormInput,
+	Submit: FormSubmit,
+	SearchSelect: SearchSelect,
+};
+
+export type CustomFormProps = {
+	values: any;
+	setValue: (
+		field: string,
+		value: any,
+		shouldValidate?: boolean | undefined
+	) => void;
 };
