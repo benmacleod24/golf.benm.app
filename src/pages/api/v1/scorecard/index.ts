@@ -24,6 +24,7 @@ const getFilterQuery = z.object({
 	member: z.ostring().transform(stringToNumber),
 	score: z.ostring().transform(stringToNumber),
 	date: z.ostring(),
+	page: z.ostring().transform(stringToNumber),
 });
 
 /**
@@ -62,6 +63,11 @@ const GET = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		const scores = await prisma.scorecard.findMany({
 			where,
+			take: 20,
+			skip: filters.page || 0 * 20,
+			include: {
+				teamMember: true,
+			},
 		});
 
 		return res.status(200).json(
