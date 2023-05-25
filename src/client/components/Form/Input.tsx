@@ -1,10 +1,4 @@
-import {
-	FormControl,
-	FormLabel,
-	Input,
-	InputProps,
-	useColorModeValue,
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, InputProps, useColorModeValue } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { CustomFormProps } from ".";
 
@@ -34,10 +28,8 @@ const FormInput: React.FC<FormInputProps> = (props) => {
 				border={"1px solid"}
 				borderColor={"whiteAlpha.200"}
 				name={props.name}
-				value={props.formProps.values[props.name]}
-				onChange={(e) =>
-					props.formProps.setValue(props.name, e.target.value)
-				}
+				value={props.formProps.value}
+				onChange={(e) => props.formProps.setValue(props.name, e.target.value)}
 				{...props.inputProps}
 			/>
 		</FormControl>

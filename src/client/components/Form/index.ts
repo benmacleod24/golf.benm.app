@@ -11,10 +11,6 @@ export const Form = {
 };
 
 export type CustomFormProps = {
-	values: any;
-	setValue: (
-		field: string,
-		value: any,
-		shouldValidate?: boolean | undefined
-	) => void;
+	value: any;
+	setValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
 };

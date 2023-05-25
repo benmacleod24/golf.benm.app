@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Form, Formik, FormikHelpers, FormikProps } from "formik";
 
-interface FormWrapperProps {
-	initValue: any;
+interface FormWrapperProps<T = any> {
+	initValue: T;
 	children: (helpers: FormikProps<any>) => any;
 	onSubmit: any;
 }
@@ -15,11 +15,7 @@ const FormWrapper: React.FC<FormWrapperProps> = (props) => {
 	return (
 		<Formik initialValues={props.initValue} onSubmit={props.onSubmit}>
 			{(helpers) => {
-				return (
-					<Form style={{ width: "100%" }}>
-						{props.children(helpers)}
-					</Form>
-				);
+				return <Form style={{ width: "100%" }}>{props.children(helpers)}</Form>;
 			}}
 		</Formik>
 	);
