@@ -18,7 +18,7 @@ import { Form } from "~/client/components/Form";
 import { NewScoreType } from "~/types";
 
 interface NewScoreContainerProps {
-	removeScore: (i: number) => void;
+	removeScore: () => void;
 	score: NewScoreType;
 	updateValue: (id: any, key: string, value: any) => void;
 }
@@ -76,7 +76,7 @@ const NewScoreContainer: React.FC<NewScoreContainerProps> = (props) => {
 						team tab.
 					</Text>
 				</Flex>
-				{isOpen && (
+				{props.score.attachPoints && (
 					<Form.Input name="roundPoints" title="How many points?" formProps={{}} />
 				)}
 			</Flex>
